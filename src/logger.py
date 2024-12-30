@@ -15,35 +15,31 @@
 # )
 
 
-
 # if __name__=="__main__":
 #     logging.info("Logging has started")
+
+
 
 import logging
 import os
 from datetime import datetime
 
-def setup_logging():
-    # Create logs directory if it doesn't exist
-    logs_dir = os.path.join(os.getcwd(), "logs")
-    os.makedirs(logs_dir, exist_ok=True)
+# Create logs directory
+LOG_DIR = "logs"
+os.makedirs(LOG_DIR, exist_ok=True)
 
-    # Create log file name with timestamp
-    log_filename = f"{datetime.now().strftime('%m_%d_%Y_%H_%M_%S')}.log"
-    log_filepath = os.path.join(logs_dir, log_filename)
+# Create log file name with timestamp
+LOG_FILE = f"{datetime.now().strftime('%m_%d_%Y_%H_%M_%S')}.log"
 
-    # Configure logging
-    logging.basicConfig(
-        level=logging.INFO,
-        format="[ %(asctime)s ] %(lineno)d %(name)s - %(levelname)s - %(message)s",
-        handlers=[
-            logging.FileHandler(log_filepath),
-            logging.StreamHandler()
-        ]
-    )
+# Construct the log file path correctly
+LOG_FILE_PATH = os.path.join(LOG_DIR, LOG_FILE)
 
-    # Test log message
-    # logging.info("Logging has been initialized")
+# Configure logging
+logging.basicConfig(
+    filename=LOG_FILE_PATH,
+    format="[%(asctime)s] %(lineno)d %(name)s - %(levelname)s - %(message)s",
+    level=logging.INFO,
+)
 
 if __name__ == "__main__":
-    setup_logging()
+    logging.info("Logging has started")
